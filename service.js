@@ -1,18 +1,43 @@
-const axios = require("axios");
-require("dotenv").config();
+require('dotenv').config();
+const axios = require('axios');
 
-const api = axios.create({
-    baseURL: process.env.WEAVY_API,
+const weavy = axios.create({
+    baseURL: process.env.WEAVY_API_URL,
     headers: {
-        Authorization: `Bearer ${process.env.WEAVY_TOKEN}`,
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.WEAVY_API_KEY}`,
+        'Content-Type': 'application/json',
     },
 });
 
+// CREATE user
+const createUser = async (data) => {
+    return await weavy.post('users', data);
+};
+
+// GET all users
+const getUsers = async () => {
+    return await weavy.get('users');
+};
+
+// GET user by ID
+const getUserById = async (id) => {
+    return await weavy.get(`users/${id}`);
+};
+
+// UPDATE user
+const updateUser = async (id, data) => {
+    return await weavy.patch(`users/${id}`, data);
+};
+
+// DELETE user
+const deleteUser = async (id) => {
+    return await weavy.delete(`users/${id}`);
+};
+
 module.exports = {
-    createUser: (data) => api.post("/users", data),
-    listUsers: () => api.get("/users"),
-    getUser: (id) => api.get(`/users/${id}`),
-    updateUser: (id, data) => api.put(`/users/${id}`, data),
-    deleteUser: (id) => api.delete(`/users/${id}`),
+    createUser,
+    getUsers,
+    getUserById,
+    updateUser,
+    deleteUser,
 };
