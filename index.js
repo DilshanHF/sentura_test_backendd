@@ -1,4 +1,3 @@
-// index.js
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,14 +7,14 @@ const {
     getUserById,
     updateUser,
     deleteUser,
-} = require('./weavyService');
+} = require('./service');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-// Routes
+
 
 // Create user
 app.post('/users', async (req, res) => {
